@@ -1,0 +1,165 @@
+/* 전체 컨테이너 폭 제한 및 중앙 정렬 */
+.custom-about-wrap {
+    max-width: 1100px;
+    margin: 60px auto;
+}
+
+/* 1. 검정창(이미지) 하단 여백 줄이기 */
+.black-video-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9; /* 비율 고정으로 불필요한 높이 방지 */
+    background: #333;
+    border-radius: 8px;
+    margin-bottom: 0; /* 이미지 바로 밑 여백 제거 */
+}
+
+/* 2. 상단과 하단 사이의 간격 조정 (적절한 밸런스) */
+.career-row {
+    margin-top: 60px; /* 검정창 아래와 경력 섹션 사이의 여백 */
+}
+
+/* 3. Do Hee Jin과 EDUCATION 수직 정렬 일치 */
+/* 부트스트랩 col의 내부 패딩을 초기화하거나 동일하게 맞춥니다 */
+.profile-content, .career-row .col-lg-6 {
+    padding-left: 15px; 
+    padding-right: 15px;
+}
+
+
+
+/* EDUCATION 섹션만 오른쪽으로 미세하게 이동 */
+.career-row .col-lg-6:last-child {
+    padding-left: 100px; /* 기본 15px에서 값을 조금씩 늘려보며 Do Hee Jin 이름과 라인을 맞추세요 */
+}
+
+/* 텍스트가 시작되는 타이틀과 리스트도 함께 정렬되도록 확인 */
+.career-row .col-lg-6:last-child .sec-title,
+.career-row .col-lg-6:last-child .info-list {
+    padding-left: 0; 
+}
+
+
+
+
+
+.name-signature, .sec-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 25px;
+    padding-left: 0; /* 텍스트가 정확히 col의 시작선에 붙게 함 */
+}
+
+/* 4. 리스트 정렬 */
+.info-list {
+    list-style: none;
+    padding: 0;
+}
+.info-list li {
+    display: flex;
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+.info-list .date {
+    width: 160px; /* 날짜 영역 고정으로 내용 시작선 일치 */
+    flex-shrink: 0;
+    color: #666;
+}
+.info-list .desc {
+    flex: 1;
+    color: #333;
+}
+
+:root {
+    /* 변수 정의 */
+    --gap: 30px;
+    --duration: 20s; /* 속도 조절: 숫자가 작을수록 빠름 */
+    --scroll-start: 0;
+    --scroll-end: calc(-100% - var(--gap)); /* 그룹 하나가 완전히 빠져나가는 거리 */
+}
+
+.marquee {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    gap: var(--gap);
+    /* 마스크 효과: 양옆이 서서히 사라지는 효과 */
+    mask-image: linear-gradient(
+        to right,
+        hsl(0 0% 0% / 0),
+        hsl(0 0% 0% / 1) 20%,
+        hsl(0 0% 0% / 1) 80%,
+        hsl(0 0% 0% / 0)
+    );
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.marquee img {
+    transition: all .2s ease;
+    width: 70px; /* 이미지 크기가 일정해야 예쁩니다 */
+    height: auto;
+    filter: grayscale(1);
+}
+
+.marquee img:hover {
+    scale: 0.9;
+}
+
+/* 마우스 올렸을 때 애니메이션 멈춤 (선택 사항) */
+.marquee:hover .marquee__group {
+    animation-play-state: paused;
+}
+
+@keyframes scroll-x {
+    from {
+        transform: translateX(var(--scroll-start));
+    }
+    to {
+        transform: translateX(var(--scroll-end));
+    }
+}
+
+.marquee__group {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: var(--gap);
+    min-width: 100%;
+    animation: scroll-x var(--duration) linear infinite;
+}
+
+
+
+
+
+
+/* 5. 반응형: 패드/모바일에서 한 줄로 쌓기 */
+
+@media (max-width: 991px) {
+    .career-row .col-lg-6:last-child {
+        padding-left: 15px;
+        margin-top: 40px;
+    }
+}
+
+
+@media screen and (max-width: 1000px){
+ 
+    .marquee,.marquee img{
+        height: 5rem;
+    }
+}
+
+@media screen and (max-width: 600px){
+    
+    .marquee__group {
+        gap:4rem;
+    }
+    .marquee,.marquee img{
+        height: 4rem;
+    }
+    
+  }
